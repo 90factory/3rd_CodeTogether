@@ -4,7 +4,7 @@ public class LoginDTO {
 
 	private String email;
 	private String password;
-	private boolean useCookie;
+//	private boolean useCookie;
 
 	public String getEmail() {
 		return email;
@@ -18,16 +18,16 @@ public class LoginDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public boolean isUseCookie() {
-		return useCookie;
-	}
-	public void setUseCookie(boolean useCookie) {
-		this.useCookie = useCookie;
-	}
+//	public boolean isUseCookie() {
+//		return useCookie;
+//	}
+//	public void setUseCookie(boolean useCookie) {
+//		this.useCookie = useCookie;
+//	}
 	@Override
 	public String toString() {
-		return "LoginDTO [email=" + email + ", password=" + password + ", useCookie=" + useCookie + ", getEmail()="
-				+ getEmail() + ", getPassword()=" + getPassword() + ", isUseCookie()=" + isUseCookie() + ", getClass()="
+		return "LoginDTO [email=" + email + ", password=" + password + ", getEmail()="
+				+ getEmail() + ", getPassword()=" + getPassword() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

@@ -2,14 +2,15 @@ package com.codetogether.user;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,40 +25,43 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@Inject
+	@Autowired
 	private UserService service;
-	@Inject
+	@Autowired
 	private JavaMailSender mailSender;
 
 
-	// 회원 CREATE
+	// 회원가입 선택 페이지로
+	@RequestMapping(value = "/create_pre", method = RequestMethod.GET)
+	public String create_pre() throws Exception{
+		return "/user/create_pre";
+	}
+
+	// 회원가입 페이지로
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create() throws Exception {
 		return "/user/create";
 	}
-	// 회원 CREATE
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView create(UserVO vo) throws Exception {
 
-		ModelAndView mav = new ModelAndView();
+	// 회원 가입
+	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
+	public Model create(@RequestBody UserVO vo, Model model) throws Exception {
 
 		// 비밀번호, 비밀번호 확인이 같은지 체크
 		if(!vo.password.equals(vo.re_password)) {
-			mav.addObject("msg", "비밀번호 재입력 오류");
-			mav.setViewName("/loginForm");
-			return mav;
+			model.addAttribute("msg", "비밀번호 재입력 오류");
+			return model;
 		}
 
 		String hashedPw = BCrypt.hashpw(vo.getPassword(), BCrypt.gensalt()); // BCrypt + salting
-		vo.setPassword(hashedPw);
+			vo.setPassword(hashedPw);
 
-		service.create(vo); //회원정보를 DB에 입력 ( valid = 0 )
-
-		mav.addObject("msg", "회원등록 완료, 이메일 인증을 해주세요");
-		mav.setViewName("redirect:/login");
+		service.create(vo);
+		model.addAttribute("msg", "회원등록 완료, 이메일 인증을 해주세요");
 
 		// 인증 메일 발송
-		MailVO sendMail = new MailVO(mailSender);
+		MailVO sendMail;
+		sendMail = new MailVO(mailSender);
 		sendMail.setSubject("[이메일 인증] CodeTogether에서 신규가입을 환영합니다.");
 		sendMail.setText((new StringBuffer().append("<h1>메일인증</h1>")
 				.append("<a href='http://localhost:8080/user/verify?email=" + vo.getEmail())
@@ -66,7 +70,7 @@ public class UserController {
 		sendMail.setTo(vo.getEmail());
 		sendMail.send();
 
-		return mav;
+		return model;
 	}
 
 
@@ -77,10 +81,16 @@ public class UserController {
 	}
 	// 회원정보 조회
 	@RequestMapping(value = "/select", method = RequestMethod.POST)
-	public ModelAndView select(@RequestParam("email") LoginDTO dto ) throws Exception {
+	public ModelAndView select(@RequestParam("email") LoginDTO dto ) {
 
 		ModelAndView mav = new ModelAndView();
-		UserVO UserInfo = service.select(dto);
+		UserVO UserInfo;
+		try {
+			UserInfo = service.select(dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		mav.addObject("UserInfo", UserInfo);
 		mav.setViewName("/user/select");

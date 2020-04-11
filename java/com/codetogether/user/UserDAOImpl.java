@@ -17,56 +17,56 @@ public class UserDAOImpl implements UserDAO {
 
 	// 회원 가입
 	@Override
-	public void create(UserVO userVO) throws Exception {
-		sql.insert("create", userVO);
+	public void create(UserVO vo) throws Exception {
+		sql.insert("create", vo);
 	}
 
 	@Override
-	public UserVO select(LoginDTO loginDTO) throws Exception {
-		return sql.selectOne("select", loginDTO);
+	public UserVO select(LoginDTO dto) throws Exception {
+		return sql.selectOne("select", dto);
 	}
 	// 회원 수정
 	@Override
-	public void update(UserVO userVO) throws Exception {
-		sql.update("update", userVO);
+	public void update(UserVO vo) throws Exception {
+		sql.update("update", vo);
 	}
 
 	// 회원 탈퇴
 	@Override
-	public void delete(UserVO userVO) throws Exception {
-		sql.delete("delete", userVO);
+	public void delete(UserVO vo) throws Exception {
+		sql.delete("delete", vo);
 	}
 
-	// 로그인 처리
+	// 로그인
 	@Override
-	public UserVO login(LoginDTO loginDTO) throws Exception {
-		return sql.selectOne("login", loginDTO);
-
+	public UserVO login(LoginDTO dto) throws Exception {
+		return sql.selectOne("login", dto);
 	}
 
-	// 로그 아웃
+	// 로그 아웃 //JWT 처리 추가 예정
 	@Override
 	public void logout(HttpSession httpsession) {
 
 	}
+
 	@Override
 	public int checkValid(String email) {
-		System.out.println(sql.selectOne("checkValid", email));
 		return sql.selectOne("checkValid", email);
 	}
 
 	@Override
-	public UserVO getBySns(UserVO userVO) {
-		if ( !StringUtils.isNullOrEmpty(userVO.getNaver_email())) {
-			return sql.selectOne("getBySnsNaver", userVO.getNaver_email());
+	public UserVO getBySns(UserVO vo) {
+		if ( !StringUtils.isNullOrEmpty(vo.getNaver_email())) {
+			return sql.selectOne("getBySnsNaver", vo.getNaver_email());
 		} else {
-			return sql.selectOne("getBySnsGoogle", userVO.getGoogle_email());
+			return sql.selectOne("getBySnsGoogle", vo.getGoogle_email());
+			//구글 추가예정
 	}
 }
 
 	@Override
-	public void verify(UserVO uservo) {
-		sql.selectOne("verfy", uservo);
+	public void verify(UserVO vo) {
+		sql.selectOne("verfy", vo);
 	}
 
 	@Override

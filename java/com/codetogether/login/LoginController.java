@@ -11,12 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,21 +42,18 @@ public class LoginController {
 	private OAuth2Parameters googleOAuth2Parameters;
 	@Inject
 	private SnsDTO naverSns;
-	@Inject
-	private SnsDTO googleSns;
-
 
 	// 로그인 페이지
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() throws Exception {
-		return "/loginForm";
+		return "/";
 	}
 
 	//로그인 (폼데이터)
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public ModelAndView loginPOST(LoginDTO dto, HttpServletResponse response, HttpSession session) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView loginPOST(@RequestBody(required=false) LoginDTO dto) throws Exception {
 
+		ModelAndView mav = new ModelAndView();
 		// 유효한 회원인지 ( valid = 1 ) 검증
 		if(service.checkValid(dto.getEmail()) == 0 ) {
 			// valid가 0인관계로 로그인 실패
@@ -76,23 +72,25 @@ public class LoginController {
 			mav.setViewName("redirect:/loginForm");
 			return mav;
 		}
-
-		// 세션값을 부여
-		session.setAttribute("login", dto);
-
-		//쿠키사용이 TRUE 일경우
-		if( dto.isUseCookie() ) {
-			Cookie cookie = new Cookie("cookie", session.getId());
-			cookie.setPath("/");
-			cookie.setMaxAge(60*60*24*7); //쿠키 시간
-			response.addCookie(cookie);
-			}
-
-		mav.addObject("msg", "로그인 성공!");
-		mav.setViewName("redirect:/");
-
 		return mav;
-		}
+	}
+
+//		// 세션값을 부여
+//		session.setAttribute("login", dto);
+//
+//		//쿠키사용이 TRUE 일경우
+//		if( dto.isUseCookie() ) {
+//			Cookie cookie = new Cookie("cookie", session.getId());
+//			cookie.setPath("/");
+//			cookie.setMaxAge(60*60*24*7); //쿠키 시간
+//			response.addCookie(cookie);
+//			}
+//
+//		mav.addObject("msg", "로그인 성공!");
+//		mav.setViewName("redirect:/");
+//
+//		return mav;
+//		}
 
 	// 로그아웃
 	@RequestMapping("/logout.do")
@@ -128,7 +126,7 @@ public class LoginController {
 		if (snsService.equalsIgnoreCase("naver")) {
 			sns = naverSns;
 		} else {
-			sns = googleSns;
+
 		}
 
 		SnsLogin snsLogin = new SnsLogin(sns);
@@ -157,10 +155,10 @@ public class LoginController {
 		SnsLogin naverLogin = new SnsLogin(naverSns);
 		model.addAttribute("naver_url", naverLogin.getNaverAuthURL());
 
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE,googleOAuth2Parameters);
-
-		model.addAttribute("google_url", url);
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE,googleOAuth2Parameters);
+//
+//		model.addAttribute("google_url", url);
 		return "/login/loginForm";
 	}
 }
