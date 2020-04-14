@@ -2,8 +2,6 @@ package com.codetogether.user;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +40,7 @@ public class UserController {
 	@Inject
 	private SnsDTO naverSns;
 
+
 	// 회원 가입
 	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -49,7 +48,6 @@ public class UserController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("jsonView");
-
 
 		if(vo.getEmail() == null || vo.getPassword() == null || vo.getPassword() == null || vo.getName() == null || vo.getPhone() == null) {
 			mav.addObject("result", "빈칸을 채워주세요");
@@ -97,6 +95,7 @@ public class UserController {
 			mav.addObject(ErrorCode.EXCEPTION);
 		}
 
+
 		mav.addObject("result", "회원등록 완료, 이메일 인증을 해주세요");
 		return mav;
 	}
@@ -115,7 +114,6 @@ public class UserController {
 			UserInfo = service.select(dto);
 
 			if (!BCrypt.checkpw(dto.getPassword(), UserInfo.getPassword())){
-
 				mav.addObject("result", "비밀번호가 일치하지 않습니다.");
 				return mav;
 			}
@@ -240,15 +238,3 @@ public class UserController {
 	}
 }
 
-
-	// 회원 수정 POST
-
-		/*
-			if(StringUtils.hasText(userVO.getPassword())) {
-
-			String bCryptString=bCryptPasswordEncoder.encode(userVO.getPassword());
-			userVO.setPassword(bCryptString);
-		}
-			userservice.create(userVO);
-		return "signup";
-		*/

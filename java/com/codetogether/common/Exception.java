@@ -1,5 +1,6 @@
 package com.codetogether.common;
 
+
 import java.net.BindException;
 
 import org.apache.ibatis.javassist.NotFoundException;
@@ -50,5 +51,3 @@ public class Exception extends RuntimeException {
 		logger.info("HttpMediaTypeNotSupportedException",e);
 		return "/common/error";
 	}
-
-}

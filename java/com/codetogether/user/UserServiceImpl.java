@@ -21,26 +21,26 @@ public class UserServiceImpl implements UserService {
 
 	// 회원 조회
 	@Override
-	public UserVO select(LoginDTO loginDTO) throws Exception {
-		return userdao.select(loginDTO);
+	public UserVO select(LoginDTO dto) throws Exception {
+		return userdao.select(dto);
 	}
 	// 회원 수정
 	@Override
-	public void update(UserVO userVO) throws Exception {
-		userdao.update(userVO);
+	public void update(UserVO vo) throws Exception {
+		userdao.update(vo);
 	}
 
 	// 회원 탈퇴
 	@Override
-	public void delete(UserVO userVO) throws Exception {
-		userdao.delete(userVO);
+	public void delete(UserVO vo) throws Exception {
+		userdao.delete(vo);
 
 	}
 
 	// 로그인
 	@Override
-	public UserVO login(LoginDTO loginDTO) throws Exception {
-		return userdao.login(loginDTO);
+	public UserVO login(LoginDTO dto) throws Exception {
+		return userdao.login(dto);
 	}
 
 	// 로그아웃 -> JWT 로그아웃으로 ..
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO getBySns(UserVO userVO) throws Exception {
-		return userdao.getBySns(userVO);
+	public UserVO getBySns(UserVO vo) throws Exception {
+		return userdao.getBySns(vo);
 	}
 
 	@Override
@@ -76,5 +76,4 @@ public class UserServiceImpl implements UserService {
 	public void tempPassword(UserVO vo) {
 		userdao.tempPassword(vo);
 	}
-
 }

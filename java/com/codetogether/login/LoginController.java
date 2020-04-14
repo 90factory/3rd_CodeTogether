@@ -58,6 +58,7 @@ public class LoginController {
 		if(dto.getEmail() == null || dto.getPassword() == null) {
 			mav.addObject("result","0");
 			mav.addObject("error", "입력값이 올바르지 않습니다.");
+
 			return mav;
 		}
 
@@ -107,8 +108,10 @@ public class LoginController {
 
 		logger.info("snsLoginCallback: service={}", snsService);
 
+    
 		SnsDTO sns = naverSns;
 		snsService.equalsIgnoreCase("naver");
+
 
 		SnsLogin snsLogin = new SnsLogin(sns);
 		UserVO snsUser = snsLogin.getUserProfile(code);
@@ -158,7 +161,6 @@ public class LoginController {
 			return null;
 		}
 		return map;
-
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -170,22 +172,3 @@ public class LoginController {
 	}
 
 }
-
-
-// 세션 및 쿠키 -> JWT 사용으로 주석화
-//
-//session.setAttribute("login", dto);
-//
-////쿠키사용이 TRUE 일경우
-//if( dto.isUseCookie() ) {
-//	Cookie cookie = new Cookie("cookie", session.getId());
-//	cookie.setPath("/");
-//	cookie.setMaxAge(60*60*24*7); //쿠키 시간
-//	response.addCookie(cookie);
-//	}
-//
-//mav.addObject("msg", "로그인 성공!");
-//mav.setViewName("redirect:/");
-//
-//return mav;
-//}

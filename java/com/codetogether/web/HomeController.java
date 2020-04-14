@@ -1,6 +1,6 @@
 package com.codetogether.web;
 
-import java.util.Locale;
+import javax.inject.Inject;
 
 import javax.inject.Inject;
 
@@ -16,6 +16,9 @@ import com.codetogether.auth.SnsLogin;
 
 @Controller
 public class HomeController {
+
+	@Inject
+	private SnsDTO naverSns;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
