@@ -2,6 +2,8 @@ package com.codetogether.web;
 
 import javax.inject.Inject;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,11 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+	@Inject
+	private SnsDTO naverSns;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Locale locale, Model model) {
 
 		logger.info("Welcome home!");
 

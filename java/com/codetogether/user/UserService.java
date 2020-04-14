@@ -26,10 +26,7 @@ public interface UserService {
 
 	UserVO getBySns(UserVO userVO) throws Exception;
 
-	//
-
-	// 이메일 1개 가져오기
-
+	void createNaver(UserVO vo) throws Exception;
 
 	// 회원 유효성 검사
 	int checkValid(String email);
@@ -37,4 +34,5 @@ public interface UserService {
 	void verify(UserVO uservo);
 
 	void tempPassword(UserVO vo);
+
 }

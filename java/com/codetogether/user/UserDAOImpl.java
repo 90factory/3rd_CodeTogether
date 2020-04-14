@@ -63,6 +63,10 @@ public class UserDAOImpl implements UserDAO {
 			//구글 추가예정
 	}
 }
+	@Override
+	public void createNaver(UserVO vo) {
+		sql.insert("createNaver", vo);
+	}
 
 	@Override
 	public void verify(UserVO vo) {

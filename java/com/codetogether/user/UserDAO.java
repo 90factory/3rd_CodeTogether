@@ -30,8 +30,10 @@ public interface UserDAO {
 
 	public UserVO getBySns(UserVO vo);
 
-	public void verify(UserVO vo);
+	void createNaver(UserVO vo);
 
+	public void verify(UserVO uservo);
+  
 	public void tempPassword(UserVO vo);
 
 }

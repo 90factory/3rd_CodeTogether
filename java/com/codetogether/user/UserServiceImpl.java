@@ -15,10 +15,11 @@ public class UserServiceImpl implements UserService {
 
 	// 회원 가입
 	@Override
-	public void create(UserVO vo) throws Exception {
-		userdao.create(vo);
+	public void create(UserVO userVO) throws Exception {
+			userdao.create(userVO);
 	}
 
+	// 회원 조회
 	@Override
 	public UserVO select(LoginDTO dto) throws Exception {
 		return userdao.select(dto);
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		return userdao.login(dto);
 	}
 
-	// 로그아웃
+	// 로그아웃 -> JWT 로그아웃으로 ..
 	@Override
 	public void logout(HttpSession httpsession) {
 		httpsession.invalidate();
@@ -53,6 +54,10 @@ public class UserServiceImpl implements UserService {
 		return userdao.getBySns(vo);
 	}
 
+	@Override
+	public void createNaver(UserVO vo) throws Exception {
+		userdao.createNaver(vo);
+	}
 	@Override
 	public void verify(UserVO uservo) {
 		userdao.verify(uservo);
@@ -71,5 +76,4 @@ public class UserServiceImpl implements UserService {
 	public void tempPassword(UserVO vo) {
 		userdao.tempPassword(vo);
 	}
-
 }
