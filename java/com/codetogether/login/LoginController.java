@@ -57,6 +57,7 @@ public class LoginController {
 			mav.setStatus(HttpStatus.BAD_REQUEST);
 			mav.addObject("result","0");
 			mav.addObject("message", "입력값이 올바르지 않습니다.");
+
 			return mav;
 		}
 
@@ -102,8 +103,10 @@ public class LoginController {
 
 		logger.info("snsLoginCallback: service={}", snsService);
 
+    
 		SnsDTO sns = naverSns;
 		snsService.equalsIgnoreCase("naver");
+
 
 		SnsLogin snsLogin = new SnsLogin(sns);
 		UserVO snsUser = snsLogin.getUserProfile(code);
@@ -160,7 +163,6 @@ public class LoginController {
 			return null;
 		}
 		return map;
-
 	}
 
 	@RequestMapping(value="/getId.do", method = RequestMethod.POST)

@@ -4,35 +4,35 @@ import com.codetogether.login.LoginDTO;
 
 public interface UserDAO {
 
-	public void create(UserVO vo) throws Exception;
+  public void create(UserVO vo) throws Exception;
 
-	UserVO select(LoginDTO dto) throws Exception;
+  UserVO select(LoginDTO dto) throws Exception;
 
-	public void update(UserVO vo) throws Exception;
+  public void update(UserVO vo) throws Exception;
 
-	public void delete(UserVO vo) throws Exception;
+  public void delete(UserVO vo) throws Exception;
 
-	UserVO login(LoginDTO dto) throws Exception;
+  UserVO login(LoginDTO dto) throws Exception;
 
-	int checkValid(String email);
+  int checkValid(String email);
 
-	public UserVO getBySns(UserVO vo);
+  public UserVO getBySns(UserVO vo);
 
-	void createNaver(UserVO vo);
+  void createNaver(UserVO vo);
 
-	public void verify(UserVO vo);
+  public void verify(UserVO vo);
 
-	public void tempPassword(UserVO vo);
+  public void tempPassword(UserVO vo);
 
-	public void trans_teacher(UserVO vo) throws Exception;
+  public void trans_teacher(UserVO vo) throws Exception;
 
-	UserVO selectOnlyEmail(UserVO vo);
+  UserVO selectOnlyEmail(UserVO vo);
 
-	void createTeacherInfo(TeacherVO tvo);
+  void createTeacherInfo(TeacherVO tvo);
 
-	TeacherVO selectTeacherInfo(TeacherVO tvo) throws Exception;
+  TeacherVO selectTeacherInfo(TeacherVO tvo) throws Exception;
 
-	void updateTeacherInfo(TeacherVO tvo);
+  void updateTeacherInfo(TeacherVO tvo);
 
 
 

@@ -87,5 +87,4 @@ public class UserServiceImpl implements UserService {
 	public void updateTeacherInfo(TeacherVO tvo) {
 		userdao.updateTeacherInfo(tvo);
 	}
-
 }

@@ -3,8 +3,6 @@ package com.codetogether.user;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +40,7 @@ public class UserController {
 	@Inject
 	private SnsDTO naverSns;
 
+  
 	@RequestMapping(value = "/checkId.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView checkId(@RequestBody UserVO vo) throws Exception {
@@ -52,6 +51,7 @@ public class UserController {
 		if(service.selectOnlyEmail(vo) == null) {
 			mav.addObject("result","1");
 			mav.addObject("message", "아이디를 사용할 수 있습니다. 계속 진행해주세요.");
+
 			return mav;
 		}
 
@@ -103,6 +103,7 @@ public class UserController {
 		mav.addObject("message", "회원등록 완료, 이메일 인증을 해주세요");
 
 		logger.info("#################### 신규회원가입 감지 : 이메일 :{} ####################", vo.getEmail());
+
 		return mav;
 	}
 
@@ -122,6 +123,7 @@ public class UserController {
 			mav.addObject(ErrorCode.INVALID_INPUT_VALUE);
 			mav.addObject("result", "0");
 			mav.addObject("message", "비밀번호가 일치하지 않습니다.");
+
 			return mav;
 		}
 		mav.addObject("result","1");

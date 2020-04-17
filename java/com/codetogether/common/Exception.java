@@ -1,5 +1,6 @@
 package com.codetogether.common;
 
+
 import java.net.BindException;
 import java.sql.SQLException;
 
@@ -94,6 +95,7 @@ public class Exception extends RuntimeException {
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
+
 	@ExceptionHandler(value = Exception.class)
 	protected ModelAndView RuntimeException (Exception e) {
 		ModelAndView mav = new ModelAndView();

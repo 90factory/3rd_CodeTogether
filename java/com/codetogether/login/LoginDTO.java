@@ -19,7 +19,7 @@ public class LoginDTO {
 	@NotBlank( message = "비밀번호를 입력해주세요")
 	private String password;
 
-	private String token;
+  private String token;
 
 //	private boolean useCookie; //쿠키 미사용
 
@@ -69,6 +69,7 @@ public class LoginDTO {
 	@Override
 	public String toString() {
 		return "LoginDTO [member_id=" + member_id + ", email=" + email + ", password=" + password + ", token=" + token;
+
 	}
 
 }

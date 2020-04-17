@@ -15,6 +15,9 @@ import com.codetogether.auth.SnsLogin;
 @Controller
 public class HomeController {
 
+	@Inject
+	private SnsDTO naverSns;
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Inject
