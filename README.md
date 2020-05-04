@@ -16,9 +16,19 @@
 
 누구나 쉽고 빠르게 접근가능한 코딩교육의 실현
 
-### 데모 영상(준비중)
+### 아키텍쳐
 
-## 구현 기능
+![architecture](https://github.com/nogari03/CodeTogether/blob/master/architecture.png?raw=true)
+
+### 데모 영상
+
+[![Video Label](http://img.youtube.com/vi/lEIVAddf9WU/0.jpg)](https://youtu.be/lEIVAddf9WU) 
+
+
+
+
+
+### 구현 기능
 
  - Spring : 회원 관리 기능 및 로그인, JWT 인증서버 구축
  - Django : 강의 관리 기능 및 SSR(Server Side Rendering)
@@ -29,3 +39,7 @@
 - Python, Django web framework
 - Java, Spring web framework(Spring mvc)
 - Vanilla JS & HTML & CSS
+
+## 개발일지
+
+[개발일지보러가기](https://drive.google.com/drive/folders/1yKNmgmrxBxYDD1Jmxjs-yKz5IRTFXKCK?usp=sharing)
